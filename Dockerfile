@@ -5,7 +5,7 @@ MAINTAINER netzfisch
 RUN apk add --update tvheadend tvheadend-dvb-scan \
     && rm -rf /var/cache/apk/*
 
-# expose 'config' and 'recordings' directory for persistence
+# expose 'config' and 'recording' directory for persistence
 VOLUME /config /recordings
 
 # expose ports for 'web interface' and 'stream'

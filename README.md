@@ -11,7 +11,9 @@ image of ~18 MB**.
 [![](https://badge.imagelayers.io/netzfisch/rpi-tvheadend:latest.svg)](https://imagelayers.io/?images=netzfisch/rpi-tvheadend:latest)
 
 Find the source code at [GitHub](https://github.com/netzfisch/rpi-tvheadend) or
-the ready-to-run image in the [DockerHub](https://hub.docker.com/r/netzfisch/rpi-tvheadend/).
+the ready-to-run image in the
+[DockerHub](https://hub.docker.com/r/netzfisch/rpi-tvheadend/) and **do not
+forget to _star_** the repository ;-)
 
 ## Requirements
 

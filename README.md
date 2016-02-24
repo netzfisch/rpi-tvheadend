@@ -3,10 +3,10 @@
 Turn your [Raspberry PI](http://raspberrypi.org) within **15 minutes** into a
 **TV streaming and recording server** for your local network!
 
-This repository defines a **docker image for the ARM architecture**, based on
-[alpine Linux](http://www.alpinelinux.org/), which is with ~5 MB much smaller
-than most other distribution base images, and thus leads to a **slimmer Tvheadend
-image of ~18 MB**.
+This **image aims at the ARM architecture**, uses the well knwon
+[Tvheadend](https://tvheadend.org/) software, is based on [alpine
+Linux](http://www.alpinelinux.org/), which is with ~5 MB much smaller than most
+other distribution base, and thus leads to a **slimmer Tvheadend image**.
 
 [![](https://badge.imagelayers.io/netzfisch/rpi-tvheadend:latest.svg)](https://imagelayers.io/?images=netzfisch/rpi-tvheadend:latest)
 
@@ -23,14 +23,17 @@ forget to _star_** the repository ;-)
 
 ## Setup
 
-- Install HypriotOS, which is based on Raspbian a debian derivate and results to
-a working docker host, see
-[Getting Started](http://blog.hypriot.com/getting-started-with-docker-and-linux-on-the-raspberry-pi/) !
-- Get the right DVB-C/S/T Linux firmware, e.g.
+- **Install a debian Docker package**, which you download
+[here](http://blog.hypriot.com/downloads/) and install with `dpkg -i
+package_name.deb`. Alternatively install HypriotOS, which is based on Raspbian a
+debian derivate and results to a fully working docker host, see [Getting
+Started](http://blog.hypriot.com/getting-started-with-docker-and-linux-on-the-raspberry-pi/)!
+- Get the right **DVB-C/S/T Linux firmware**, e.g.
 
 ```sh
 /lib/firmware $ wget https://www.linuxtv.org/downloads/firmware/dvb-usb-vp7045-01.fw
 ```
+
 - Change your network interface to a static IP
 
 ```sh
@@ -53,7 +56,7 @@ $ cat /etc/fstab
   ...
 ```
 
-- **Pull** the respective **docker image** `$ docker pull netzfisch/tvheadend`
+- **Pull** the respective **docker image** `$ docker pull netzfisch/rpi-tvheadend`
 
 ### Usage
 

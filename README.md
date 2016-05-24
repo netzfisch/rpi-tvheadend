@@ -58,6 +58,15 @@ $ cat /etc/fstab
 
 - **Pull** the respective **docker image** `$ docker pull netzfisch/rpi-tvheadend`
 
+### Build
+
+To build and rename/tag the image, do
+
+```sh
+$ docker build -t netzfisch/rpi-tvheadend:test .
+$ docker tag netzfisch/rpi-tvheadend:test netzfisch/rpi-tvheadend:4.0.9
+```
+
 ### Usage
 
 Get ready to roll and run the container:

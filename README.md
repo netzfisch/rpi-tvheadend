@@ -3,7 +3,7 @@
 Turn your [Raspberry PI](http://raspberrypi.org) within **15 minutes** into a
 **TV streaming and recording server** for your local network!
 
-This **image aims at the ARM architecture**, uses the well knwon
+This **image aims at the ARM architecture**, uses the well known
 [Tvheadend](https://tvheadend.org/) software, is based on [alpine
 Linux](http://www.alpinelinux.org/), which is with ~5 MB much smaller than most
 other distribution base, and thus leads to a **slimmer Tvheadend image**.
@@ -52,36 +52,72 @@ $ cat /etc/network/interfaces
 ```sh
 $ cat /etc/fstab
   ...
-  192.168.XXX.NAS:/NAS/Movies /media/movies nfs auto  0 0
+  192.168.NAS.IP:/nfs/Public /mnt nfs auto  0 0
   ...
 ```
+
+Alternatively ... if you are **lazy**, use a **docker volume plugin**, which enables
+the volume type **NFS to be mounted directly** within the container, see
+[Netshare docker plugin](http://netshare.containx.io/). After install you can
+use it like this
+
+    $ docker run -it --volume-driver=nfs --volume NFShost/path:/data alpine /bin/ash
+    $ cd /data
+    $ touch testfile
 
 - **Pull** the respective **docker image** `$ docker pull netzfisch/rpi-tvheadend`
 
 ### Build
 
-To build and rename/tag the image, do
+To build and tag the image by yourself, do
 
 ```sh
+$ vim Dockerfile
 $ docker build -t netzfisch/rpi-tvheadend:test .
 $ docker tag netzfisch/rpi-tvheadend:test netzfisch/rpi-tvheadend:4.0.9
 ```
 
-### Usage
+## Usage
 
 Get ready to roll and run the container:
 
     $ docker run --detach \
                  --name tvheadend \
                  --restart unless-stopped \
-                 --volume /media/movies/tvh-config:/config \
-                 --volume /media/movies:/recordings \
+                 --volume /mnt/Configs/tvh-config:/config \
+                 --volume /mnt/Movies:/recordings \
                  -p 9981-9982:9981-9982 \
                  --privileged netzfisch/rpi-tvheadend
 
 Finally [configure Tvheadend](http://docs.tvheadend.org/configure_tvheadend/)
 via the web interface at **http://192.168.PI.IP:9981**. An initial user is
-created, so you will be logged in flawless, but you should change that asap!
+created, so you will be **logged in flawless, and setup wizard** should start
+immediately!
+
+**HEADS UP** If you are running into **problems like**
+
+    2016-10-02 18:32:25.705 dvr: Unsupported charset ASCII using ASCII
+    2016-10-02 18:32:25.705 dvr: Recording error: Unable to create file
+
+**check the Web-GUI** [ Recording > DVR-Profile > Advanced View > Filename Charset ]
+if set to a **supported charset format**, e.g. **UTF-8**! At my installation it
+was set to **ASCII** which **failed to write to the NAS**, and cost me too much
+time to debug ;-( ... encoding in 2016 still sucks!
+
+## Debugging
+
+If you run into trouble, try to get a **clean setup at docker host level**
+
+    $ docker stop tvheadend && docker rm tvheadend # stop and remove container
+    $ rmmod dvb_usb_vp7045 dvb_usb dvb_core        # remove DVB-T linux modules
+    $ modprobe dvb_usb_vp7045                      # reload DVB-T linux modules
+    $ docker run --detach \                        # create new containter
+                 --name tvheadend \
+                 ...
+
+and than **go into the container** for further debugging:
+
+    $ docker exec -it tvheadend /bin/ash
 
 ## Contributing
 

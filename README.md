@@ -69,13 +69,16 @@ use it like this
 
 ### Build
 
-To build and tag the image by yourself, do
+To build and tag the image by yourself, e.g. for the **Intel x86_64 platform** do
 
 ```sh
-$ vim Dockerfile
-$ docker build -t netzfisch/rpi-tvheadend:test .
-$ docker tag netzfisch/rpi-tvheadend:test netzfisch/rpi-tvheadend:4.0.9
+$ vim Dockerfile.x86_64
+$ docker build -t netzfisch/tvheadend:test Dockerfile.x86_64
+$ docker tag netzfisch/tvheadend:test netzfisch/tvheadend:4.0.9
 ```
+
+Find the **automated build** for that at
+[DockerHub](https://hub.docker.com/r/netzfisch/tvheadend/).
 
 ## Usage
 

@@ -55,12 +55,12 @@ Alternatively ... if you are **lazy**, use a **docker volume plugin**, which ena
 
 ### Build
 
-To build and tag the image by yourself, e.g. for the **Intel x86_64 platform** do
+To build the image and/or compile by yourself from git source, use Dockerfile.build
 
 ```sh
-$ vim Dockerfile.x86_64
-$ docker build -t netzfisch/tvheadend:test Dockerfile.x86_64
-$ docker tag netzfisch/tvheadend:test netzfisch/tvheadend:4.0.9
+$ cat Dockerfile.build
+$ docker build -f Dockerfile.build -t netzfisch/tvheadend:git-build .
+$ docker tag netzfisch/tvheadend:git-build netzfisch/tvheadend:4.1_git20161008
 ```
 
 Find the **automated build** for that at [DockerHub](https://hub.docker.com/r/netzfisch/tvheadend/).
